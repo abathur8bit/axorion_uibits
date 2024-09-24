@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// The select list will return null if the user pressed the back button, or the index
 /// number of the selected item.
 class SelectList extends StatefulWidget {
-  List<String> items;
+  List<Object> items;
   String title;
   int? selected;
   SelectList({Key? key,this.selected=null,required this.items,required this.title}) : super(key: key);
@@ -35,7 +35,7 @@ class _SelectListState extends State<SelectList> {
               style =  TextStyle(fontWeight: FontWeight.bold);
               // tileColor = Colors.red;
             }
-            return ListTile(tileColor: tileColor,title:Text(style:style,widget.items[index]),onTap: () => Navigator.pop(context,index));
+            return ListTile(tileColor: tileColor,title:Text(style:style,widget.items[index].toString()),onTap: () => Navigator.pop(context,index));
           },
         ));
   }

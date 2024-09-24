@@ -5,6 +5,13 @@ import 'about_page.dart';
 void main() {
   runApp(MyApp());
 }
+class Track {
+  String name;
+  String? country;
+  Track({required this.name,this.country});
+  @override
+  String toString() => name+(country != null ? ", $country":"");
+}
 
 class MyApp extends StatefulWidget {
   bool toggledOn;
@@ -18,29 +25,29 @@ class _MyAppState extends State<MyApp> {
   final String onMsg = "Toggled on currently";
   final String offMsg = "Toggled off currently";
   int? selected;
-  List<String> values = [
-    "Circuit De Barcelona-Catalunya Rallycross",
-    "Comienzo en Bellriu",
-    "El Rodeo",
-    "Elsthorpe Sprint Forward",
-    "Elsthorpe Sprint Reverse",
-    "Hell Rallycross",
-    "Lohéac Bretagne Rallycross",
-    "Marynka",
-    "Te Awanga Forward",
-    "Te Awanga Sprint Reverse",
-    "Waimarama Sprint Forward",
-    "Circuit De Barcelona-Catalunya Rallycross",
-    "Comienzo en Bellriu",
-    "El Rodeo",
-    "Elsthorpe Sprint Forward",
-    "Elsthorpe Sprint Reverse",
-    "Hell Rallycross",
-    "Lohéac Bretagne Rallycross",
-    "Marynka",
-    "Te Awanga Forward",
-    "Te Awanga Sprint Reverse",
-    "Waimarama Sprint Forward",
+  List<Track> values = [
+    Track(name:"Circuit De Barcelona-Catalunya Rallycross",country:"USA"),
+    Track(name:"Comienzo en Bellriu"),
+    Track(name:"El Rodeo"),
+    Track(name:"Elsthorpe Sprint Forward"),
+    Track(name:"Elsthorpe Sprint Reverse"),
+    Track(name:"Hell Rallycross"),
+    Track(name:"Lohéac Bretagne Rallycross"),
+    Track(name:"Marynka"),
+    Track(name:"Te Awanga Forward"),
+    Track(name:"Te Awanga Sprint Reverse"),
+    Track(name:"Waimarama Sprint Forward"),
+    Track(name:"Circuit De Barcelona-Catalunya Rallycross"),
+    Track(name:"Comienzo en Bellriu"),
+    Track(name:"El Rodeo"),
+    Track(name:"Elsthorpe Sprint Forward"),
+    Track(name:"Elsthorpe Sprint Reverse"),
+    Track(name:"Hell Rallycross"),
+    Track(name:"Lohéac Bretagne Rallycross"),
+    Track(name:"Marynka"),
+    Track(name:"Te Awanga Forward"),
+    Track(name:"Te Awanga Sprint Reverse"),
+    Track(name:"Waimarama Sprint Forward"),
   ];
   @override
   Widget build(BuildContext context) {
@@ -49,7 +56,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: Builder(builder:(context) => Scaffold(
             appBar: AppBar(title:const Text("")),
-            body: ElevatedButton(onPressed: () => onSelector(context),child: Padding(padding:const EdgeInsets.only(bottom:3),child:Text("Open Selector")))
+            body: ElevatedButton(onPressed: () => onSelector(context),child: Padding(padding:const EdgeInsets.only(bottom:3),child:Text("Selector")))
         )
     ));
   }
