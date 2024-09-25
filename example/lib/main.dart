@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   final String onMsg = "Toggled on currently";
   final String offMsg = "Toggled off currently";
   int? selected;
-  List<Track> values = [
+  List<Track> tracks = [
     Track(name:"Circuit De Barcelona-Catalunya Rallycross",country:"USA"),
     Track(name:"Comienzo en Bellriu"),
     Track(name:"El Rodeo"),
@@ -56,7 +56,11 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: Builder(builder:(context) => Scaffold(
             appBar: AppBar(title:const Text("")),
-            body: ElevatedButton(onPressed: () => onSelector(context),child: Padding(padding:const EdgeInsets.only(bottom:3),child:Text("Selector")))
+            body: ListView(children:[
+              ElevatedButton(onPressed: () => onSelector(context),child: Padding(padding:const EdgeInsets.only(bottom:3),child:Text("Selector"))),
+              ASelectField(padding:EdgeInsets.all(8),label:"Track",items:tracks,onTap:(value) => print("Selected track ${tracks[value].toString()}")),
+              ASelectField(padding:EdgeInsets.all(8),label:"Car",items:tracks,onTap:(value) => print("Selected car ${tracks[value].toString()}")),
+            ])
         )
     ));
   }
@@ -64,9 +68,9 @@ class _MyAppState extends State<MyApp> {
     final int? result = await
     Navigator.push(context,MaterialPageRoute(
         // builder: (context) => AboutPage()));
-        builder: (context) => SelectList(selected:selected,title:"Select something",items: values )));
+        builder: (context) => SelectList(selected:selected,title:"Select something",items: tracks )));
     if(result != null) {
-      print("selected $result which is ${values[result]}");
+      print("selected $result which is ${tracks[result]}");
       setState(() {
         selected = result;
       });
