@@ -4,34 +4,61 @@ class ASelectField extends StatefulWidget {
   void Function(int)? onTap;
   final String label;
   int? selected;
+  double labelWidth;
   final List<Object> items;
   final EdgeInsetsGeometry? padding;
-  ASelectField({super.key, required this.label,required this.items,this.padding,this.selected,this.onTap});
+  ASelectField({super.key, required this.label,required this.items,this.padding,this.selected,this.onTap,this.labelWidth=150.0});
 
   @override
   State<ASelectField> createState() => _ASelectFieldState();
 }
 
 class _ASelectFieldState extends State<ASelectField> {
+  Color? fieldColor;
+
   @override
   Widget build(BuildContext context) {
+    if(fieldColor == null) {
+      fieldColor = Theme.of(context).colorScheme.background;
+    }
     Object? item;
     if (widget.selected != null) {
       item = widget.items[widget.selected!];
     }
-    Row row = Row(children: [
-      Container(padding: widget.padding, width: 150, child: Text(widget.label)),
-      Expanded(child: Text(item?.toString() ?? "")),
+
+    Widget row = Row(children: [
+      Container(padding: widget.padding, width: widget.labelWidth, child: Text(widget.label)),
+      Expanded(child: Text(item?.toString() ?? "",style:TextStyle(fontWeight:FontWeight.bold))),
       const Icon(Icons.arrow_forward_ios)
     ]);
+    Widget w = MouseRegion(onEnter:(event) => onEntered(),onExit: (event) => onExit(),
+        child:Container(
+            padding: EdgeInsets.all(16.0),
+            decoration:BoxDecoration(color: fieldColor,borderRadius: BorderRadius.all(Radius.circular(4)),border: Border.all(width: 1, color: Colors.grey.shade400)),
+            child: row));
     if (widget.padding != null) {
       return GestureDetector(
           onTap: () => onSelector(context),
-          child: Padding(padding: widget.padding!,child: row)
+          child: Padding(padding: widget.padding!,child: w)
       );
     } else {
-      return GestureDetector(onTap: () => onSelector(context), child: row);
+      return GestureDetector(onTap: () => onSelector(context), child: w);
     }
+  }
+
+  void onEntered() {
+    print("enter");
+    setState(() {
+      Color c = Theme.of(context).colorScheme.secondary;
+      fieldColor = Color.fromARGB(0x11,c.red,c.green,c.green);
+    });
+  }
+
+  void onExit() {
+    print("exit");
+    setState(() {
+      fieldColor = Theme.of(context).colorScheme.background;
+    });
   }
 
   void onSelector(BuildContext context) async {
