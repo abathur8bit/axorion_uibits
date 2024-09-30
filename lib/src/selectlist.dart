@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
+/// A field that has a label and value, and when clicked it brings up another screen with a list
+/// of items you can chose from. onTap is called with the item that was selected when the screen
+/// returns with a new selection.
 class ASelectField extends StatefulWidget {
-  void Function(int)? onTap;
-  final String label;
-  int? selected;
-  double labelWidth;
-  final List<Object> items;
-  final EdgeInsetsGeometry? padding;
+  void Function(int)? onTap;          /// called with the item that was selected when the screen returns with a new selection
+  final String label;                 /// label describing the field
+  int? selected;                      /// index of the selected item to highlight, or null if nothing is selected yet
+  double labelWidth;                  /// Optional width of the label area, defaults otherwise
+  final List<Object> items;           /// List of items that implements toString()
+  final EdgeInsetsGeometry? padding;  /// optional padding around the field
   ASelectField({super.key, required this.label,required this.items,this.padding,this.selected,this.onTap,this.labelWidth=150.0});
 
   @override
@@ -47,7 +50,6 @@ class _ASelectFieldState extends State<ASelectField> {
   }
 
   void onEntered() {
-    print("enter");
     setState(() {
       Color c = Theme.of(context).colorScheme.secondary;
       fieldColor = Color.fromARGB(0x11,c.red,c.green,c.green);
@@ -55,7 +57,6 @@ class _ASelectFieldState extends State<ASelectField> {
   }
 
   void onExit() {
-    print("exit");
     setState(() {
       fieldColor = Theme.of(context).colorScheme.background;
     });
